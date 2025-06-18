@@ -1,9 +1,6 @@
 
-function prompt(mensaje) {
-  return window.prompt(mensaje);
-}
-
 // Menú del restaurante
+
 const menu = {
   desayuno: { "chocolate con churros": 15, "crepes rellenos": 13, "zumo tropical": 12 },
   comida: { "pasta": 10, "pizza": 9, "lasaña": 10 },
