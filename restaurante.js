@@ -1,5 +1,7 @@
 
-const prompt = require('prompt-sync')(); // Reemplaza window.prompt()
+function prompt(mensaje) {
+  return window.prompt(mensaje);
+}
 
 // Menú del restaurante
 const menu = {
@@ -9,26 +11,30 @@ const menu = {
 };
 
 // Función para mostrar el menú
+
 function mostrarMenu(tipoMenu) {
-  console.log(`\n=== Menú de ${tipoMenu.toUpperCase()} ===`);
+  let mensaje = `=== Menú de ${tipoMenu.toUpperCase()} ===\n\n`;
   for (const [plato, precio] of Object.entries(menu[tipoMenu])) {
-    console.log(`${plato}: $${precio}`);
+  mensaje += `${plato}: $${precio}\n`;
   }
+  alert(mensaje);
 }
 
 // Función para seleccionar menú
+
 function seleccionarMenu() {
   let tipoMenu;
   do {
     tipoMenu = prompt("¿Qué menú desea? (Desayuno/Comida/Cena): ").toLowerCase();
     if (!menu[tipoMenu]) {
-      console.log(" Menú no válido. Elige entre: Desayuno, Comida o Cena.");
+      alert(" Menú no válido. Elige entre: Desayuno, Comida o Cena.");
     }
   } while (!menu[tipoMenu]);
   return tipoMenu;
 }
 
 // Función para elegir plato
+
 function elegirPlato(tipoMenu) {
   mostrarMenu(tipoMenu);
   const opciones = menu[tipoMenu];
@@ -36,26 +42,31 @@ function elegirPlato(tipoMenu) {
   do {
     platoElegido = prompt(`Escribe el nombre del plato que desea de ${tipoMenu}: `).toLowerCase();
     if (!opciones[platoElegido]) {
-      console.log(` Plato no disponible. Opciones válidas: ${Object.keys(opciones).join(", ")}`);
+      alert(` Plato no disponible. Opciones válidas: ${Object.keys(opciones).join("\n")}`);
     }
   } while (!opciones[platoElegido]);
   return { nombre: platoElegido, precio: opciones[platoElegido] };
 }
 
 // Función para generar factura
+
 function generarFactura(platos) {
-  console.log("\n=== FACTURA ===");
+  let factura = "=== FACTURA ===\n\n";
   let total = 0;
+
   platos.forEach((plato, index) => {
-    console.log(`${index + 1}. ${plato.nombre.toUpperCase()}: $${plato.precio}`);
+    factura += `${index + 1}. ${plato.nombre.toUpperCase()}: $${plato.precio}\n`;
     total += plato.precio;
   });
-  console.log(`\nTOTAL A PAGAR: $${total}`);
+
+  factura += `\nTOTAL A PAGAR: $${total}\n\nGracias por su pedido!`;
+  alert(factura);
 }
 
 // Función principal
+
 function main() {
-  console.log("¡Bienvenido al Restaurante JS Puro!");
+  alert("¡Bienvenido al Restaurante JS Puro!");
   const tipoMenu = seleccionarMenu();
   const platos = [];
   
@@ -65,8 +76,9 @@ function main() {
   }
   
   generarFactura(platos);
-  console.log("¡Gracias por su pedido!");
+  alert("¡Gracias por su pedido!");
 }
 
 // Ejecutar el programa
+
 main();
